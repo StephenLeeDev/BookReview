@@ -1,5 +1,6 @@
 package com.example.bookreview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -108,7 +109,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initBookRecyclerView() {
-        adapter = BookAdapter()
+        adapter = BookAdapter(itemClickListener = {
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("bookModel", it)
+            startActivity(intent)
+        })
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
     }
